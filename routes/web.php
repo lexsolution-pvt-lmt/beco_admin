@@ -31,3 +31,11 @@ Route::view('/adhoc3', 'adhoc/adhoc3')->name('adhoc3');
 
 Route::get('/adhoc', 'AdhocController@index');
 Route::get('/adhoc2', 'AdhocController@create');
+
+
+
+// new added
+
+
+
+

@@ -77,6 +77,7 @@ var firebaseConfig = {
     measurementId: "{{get_settings('firebase-measurement-id')}}"
   };
 
+
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();

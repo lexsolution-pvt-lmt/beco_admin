@@ -227,7 +227,13 @@ Route::middleware('auth:web')->group(function () {
             Route::get('delete/{user}', 'AdminController@delete');
             Route::get('profile/{user}', 'AdminController@viewProfile');
             Route::post('profile/update/{user}', 'AdminController@updateProfile');
+
+
+
         });
+
+
+
         // Zone CRUD
         Route::group(['prefix' => 'zone',  'middleware' => 'permission:view-zone'], function () {
             // prefix('zone')->group(function () {
@@ -555,6 +561,17 @@ Route::middleware('auth:web')->group(function () {
             Route::get('toggle_status/{package}', 'PackageTypeController@toggleStatus');
             Route::get('delete/{package}', 'PackageTypeController@delete');
         });
+
+        // Charging Point
+        Route::group(['prefix' => 'charging-point',  'middleware' => 'permission:package-type'], function () {
+            Route::get('/', '\App\Http\Controllers\chargingPointController@index');
+            Route::get('/fetch', '\App\Http\Controllers\chargingPointController@getAllAdmin');
+            Route::get('/create', '\App\Http\Controllers\chargingPointController@create');
+            Route::post('/create', '\App\Http\Controllers\chargingPointController@store');
+            
+        });
+
+
 
 
     });
