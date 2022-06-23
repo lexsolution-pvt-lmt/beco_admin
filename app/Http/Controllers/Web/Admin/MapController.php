@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\ServiceLocation;
 use App\Models\Request\Request as RequestRequest;
 
+use App\admin\chargingPoint;
+
+
 class MapController extends Controller
 {
     public function heatMapView(Request $request)
@@ -77,8 +80,14 @@ class MapController extends Controller
         }
 
 
+        $chargerPoint = chargingPoint::all();
 
-        return view('admin.map.map', compact('page', 'main_menu', 'sub_menu', 'default_lat', 'default_lng'));
+        // dd($chargerPoint);
+
+
+
+
+        return view('admin.map.map', compact('page', 'main_menu', 'sub_menu', 'default_lat', 'default_lng', 'chargerPoint'));
     }
 
     public function mapViewMapbox()

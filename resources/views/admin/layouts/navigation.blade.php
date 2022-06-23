@@ -112,6 +112,14 @@ if(str_contains((string)request()->path(),'translations')){
       </li>
       @endif
 
+      @if(auth()->user()->can('service_location'))
+      <li class="{{'service_location' == $main_menu ? 'active' : '' }}">
+        <a href="{{url('/charging-point')}}">
+          <i class="fa fa-map-marker"></i> <span>Charging Point</span>
+        </a>
+      </li>
+      @endif
+
       @php
         $areas = App\Models\Admin\ServiceLocation::companyKey()->active(true)->get();
       @endphp

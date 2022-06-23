@@ -77,6 +77,10 @@ var firebaseConfig = {
     measurementId: "{{get_settings('firebase-measurement-id')}}"
   };
 
+    var chargerPoint = JSON.parse('<?php echo $chargerPoint; ?>');
+
+
+ 
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
@@ -105,6 +109,14 @@ var firebaseConfig = {
           ontrip: {
             name: 'OnTrip',
             icon: iconBase + '/driver_on_trip.png'
+          },
+          chargerOnline: {
+            name: 'chargerOnline',
+            icon: iconBase + '/chargeronline.png'
+          },
+          chargerOffline: {
+            name: 'chargerOffline',
+            icon: iconBase + '/chargeroffline.png'
           },
         
         };
@@ -170,6 +182,49 @@ var firebaseConfig = {
             // });
             }
         });
+
+        console.log("rider");
+
+        for (var i = 0; i<chargerPoint.length; i++){
+            console.log("rider");
+            console.log(chargerPoint[i]);
+            var contentString = `<div class="p-2">
+                                    <h5>${chargerPoint[i]["name"]}</h5>
+                                    <p>${chargerPoint[i]["address"]}</p>
+                                    <p>${chargerPoint[i]["status"] == "1" ? "Active" : "Inactive"}</p>
+                                </div>`;
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            var iconImg = '';
+            // if(val.company_key==company_key){
+
+                if(chargerPoint[i]['status'] == "1"){
+                    iconImg = icons['chargerOnline'].icon;
+                }else{
+                    iconImg = icons['chargerOffline'].icon;
+                }
+            // }
+            
+
+            var carIcon = new google.maps.Marker({
+                position: new google.maps.LatLng(chargerPoint[i]["lat"],chargerPoint[i]["long"]),
+                icon: iconImg,
+                map: map
+            });
+
+            carIcon.addListener('click', function() {
+                infowindow.open(map, carIcon);
+            });
+
+            marker.push(carIcon);
+            carIcon.setMap(map);
+        }
+
+
+
     }
 
     // Delete truck icons once map reloads
